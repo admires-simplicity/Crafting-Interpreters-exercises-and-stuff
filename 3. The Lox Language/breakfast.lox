@@ -1,0 +1,54 @@
+class Breakfast {
+  init(meat, bread) {
+    this.meat = meat;
+    this.bread = bread;
+  }
+
+  serve(who) {
+    print "Enjoy your " + this.meat + " and " +
+        this.bread + ", " + who + ".";
+  }
+}
+
+var baconAndToast = Breakfast("bacon", "toast");
+baconAndToast.serve("Dear Reader");
+
+//var nilBreakfast = Breakfast(); //produces error
+//nilBreakfast.serve();
+
+class Brunch < Breakfast {
+  init(meat, bread, drink) {
+    super.init(meat, bread);
+    this.drink = drink;
+    //this.drink = this.other;
+  }
+
+  drink() {
+    //print "How about a Bloody Mary?";
+    print this.drink;
+  }
+
+  other() {
+    print "other function called successfully";
+  }
+
+  fdrink() {
+    this.other();
+    this.drink();
+  }
+}
+
+var benedict = Brunch("ham", "English muffin", "mcdonalds sprite");
+benedict.serve("Noble Reader");
+benedict.fdrink();
+print benedict.drink;
+
+//can you add methods classes at runtime, same as adding fields ??  I am
+//getting a bug when I have drink defined as a function, and then I set
+//"this.drink" to argument in init. actually I realized, this is not a "bug," I
+//was just misunderstanding lox semantics what happens is that I can't call the
+//"drink" method. I was expecting the drink method and drink variable to be in
+//two separate namespaces, but they're not, so "this.drink = drink" ends up
+//writing over the drink() method I defined...
+//
+//also, this.drink = this.other *does* work

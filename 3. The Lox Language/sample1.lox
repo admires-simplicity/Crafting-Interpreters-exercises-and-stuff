@@ -1,0 +1,164 @@
+
+//as it turns out, a gcd algorithm is tough because we don't have ints... LOL
+
+fun abs(n) {
+  if (n < 0) {
+    return -n;
+  }
+  return n;
+}
+
+fun sign(n) {
+  if (n < 0) {
+    return -1;
+  }
+  return 1;
+}
+
+class Int {
+  init(n) {
+    var i = 0;
+    while (abs(i - abs(n)) >= 1) {
+      i = i + 1 * sign(n);
+    }
+    this.val = i;
+    //this.remainder = nil; // ?
+  }
+
+  div(d) { // d : Int
+    var last_val = this.val;
+    var result = Int(this.val / d.val);
+    this.val = result.val;
+    print this.val;
+    this.remainder = last_val - (this.val * d.val);
+    print this.remainder;
+  }
+}
+
+//var five = Int(5);
+//print five.val;
+//five = Int(5.5);
+//print five.val;
+//
+//
+var twenty = Int(20);
+twenty.div(Int(3.9));
+print twenty.val;
+print twenty.remainder;
+
+
+fun gcd(m, n) {
+  //var last_m = m;
+  //m = m / n;
+  //var r = last_m - (m * n);
+  //print last_m;
+  //print n;
+  //print m;
+  //print r;
+  m = Int(m);
+  n = Int(n);
+  m.div(n);
+  print m.val;
+  print m.remainder;
+  while (m.remainder != 0) {
+    var tmp = m;
+    m = n;
+    n = Int(tmp.remainder);
+    m.div(n);
+  }
+  print n.val;
+}
+
+gcd(1*2*3*4*5*6*7*8*9, 2*4*8*16*32);
+print 1*2*3*4*5*6*7*8*9;
+print 2*4*8*16*32;
+
+//fun gcd_test() {
+//  var result = true;
+//  result = resulttest(gcd(1*2*3*4*5*6*7*8*9, 2*4*8*16*32), 2*4*2*8);
+//  print 
+//}
+
+class Pair {
+  init(a, b) {
+    this.a = a;
+    this.b = b;
+  }
+}
+
+class ListNode {
+  init(v) {
+    this.val = v;
+    this.next = nil;
+  }
+}
+
+class List {
+  init(v) {
+    //this.v = v;
+    //this.next = nil;
+    this.head = ListNode(v);
+    this.tail = this.head;
+  }
+  
+  //index(i) {
+  //  if (i < 0) {
+  //     return nil;
+  //  }
+  //  if (i == 0) {
+  //    return v;
+  //  }
+  //  if (this.next == nil) {
+  //    return nil;
+  //  }
+  //  return this.next.index(i - 1);
+  //}
+
+  //add(v) {
+  //  this.next = List(v);
+  //}
+
+  append(v) {
+    var node = ListNode(v);
+    this.tail.next = node;
+    this.tail = node;
+    return this;
+  }
+
+  find(v) {
+    var cur = this.head;
+    var i = 0;
+    while (cur != nil and cur.val != v) {
+      cur = cur.next;
+    }
+  }
+}
+
+var arr = List(1);
+//arr.add(2);
+//arr.add(3);
+arr.append(2);
+arr.append(3);
+
+arr.append(4).append(5).append(6);
+
+fun print_list(lst) {
+  var head = lst.head;
+  while (head != nil) {
+    print head.val;
+    head = head.next;
+  } 
+}
+
+
+
+//print arr == nil;
+print_list(arr);
+
+
+//tried to write gcd algorithm
+//realized I needed a Int type, so I wrote the Int class
+//tried to write test suite to test gcd implementation
+//realized it would be nice to have a list to fold over,
+//so implemented List class
+
