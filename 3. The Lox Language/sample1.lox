@@ -79,12 +79,12 @@ print 2*4*8*16*32;
 //  print 
 //}
 
-class Pair {
-  init(a, b) {
-    this.a = a;
-    this.b = b;
-  }
-}
+//class Pair {
+//  init(a, b) {
+//    this.a = a;
+//    this.b = b;
+//  }
+//}
 
 class ListNode {
   init(v) {
@@ -95,42 +95,30 @@ class ListNode {
 
 class List {
   init(v) {
-    //this.v = v;
-    //this.next = nil;
     this.head = ListNode(v);
     this.tail = this.head;
   }
-  
-  //index(i) {
-  //  if (i < 0) {
-  //     return nil;
-  //  }
-  //  if (i == 0) {
-  //    return v;
-  //  }
-  //  if (this.next == nil) {
-  //    return nil;
-  //  }
-  //  return this.next.index(i - 1);
-  //}
-
-  //add(v) {
-  //  this.next = List(v);
-  //}
 
   append(v) {
-    var node = ListNode(v);
-    this.tail.next = node;
-    this.tail = node;
+    this.tail.next = ListNode(v);
+    this.tail = this.tail.next;
     return this;
   }
 
-  find(v) {
-    var cur = this.head;
-    var i = 0;
-    while (cur != nil and cur.val != v) {
-      cur = cur.next;
+  //find(v) {
+  //  var cur = this.head;
+  //  var i = 0;
+  //  while (cur != nil and cur.val != v) {
+  //    cur = cur.next;
+  //  }
+  //}
+
+  fold(base, update) {
+    for (var node = this.head; node.next != nil; node = node.next) {
+      base = update(base, node.val);
     }
+    base = update(base, this.tail.val);
+    return base;
   }
 }
 
@@ -155,6 +143,43 @@ fun print_list(lst) {
 //print arr == nil;
 print_list(arr);
 
+fun add(a, b) {
+  return a + b;
+}
+
+print arr.fold(0, add);
+
+fun manual_fold_tests() {
+  fun test(LS, RS) {
+    var result = LS == RS;
+    if (result == false) {
+      print "TEST FAILED";
+      print "expected:";
+      print LS;
+      print "got:";
+      print RS;
+    }
+    return false;
+  }
+
+  print " ---------- BEGINNING OF TESTS ---------- ";
+  var arr = List(1);
+  test(arr.fold(0, add), 1);
+  arr.append(2);
+  test(arr.fold(0, add), 3);
+  arr.append(3);
+  test(arr.fold(0, add), 6);
+  arr.append(4);
+  test(arr.fold(0, add), 10);
+  arr.append(5);
+  test(arr.fold(0, add), 15);
+  test(arr.fold(0, add), 16);
+  print " ---------- END OF TESTS ---------- ";
+}
+
+
+
+manual_fold_tests();
 
 //tried to write gcd algorithm
 //realized I needed a Int type, so I wrote the Int class
@@ -162,3 +187,5 @@ print_list(arr);
 //realized it would be nice to have a list to fold over,
 //so implemented List class
 
+
+//ambiguous: when you do an equality on class instances, how does that work? by reference, or by value?
