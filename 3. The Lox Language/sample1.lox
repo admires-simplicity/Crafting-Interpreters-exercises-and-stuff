@@ -1,5 +1,8 @@
 
-//as it turns out, a gcd algorithm is tough because we don't have ints... LOL
+// sample program for challenge 1 from chapter 3
+// gcd algorithm
+// uses custom Int class with division operation (method)
+// has a few tests but not extensive
 
 fun abs(n) {
   if (n < 0) {
@@ -18,7 +21,7 @@ fun sign(n) {
 class Int {
   init(n) {
     var i = 0;
-    while (abs(i - abs(n)) >= 1) {
+    while (abs(abs(i) - abs(n)) >= 1) {
       i = i + 1 * sign(n);
     }
     this.val = i;
@@ -29,163 +32,42 @@ class Int {
     var last_val = this.val;
     var result = Int(this.val / d.val);
     this.val = result.val;
-    print this.val;
     this.remainder = last_val - (this.val * d.val);
-    print this.remainder;
   }
 }
 
-//var five = Int(5);
-//print five.val;
-//five = Int(5.5);
-//print five.val;
-//
-//
-var twenty = Int(20);
-twenty.div(Int(3.9));
-print twenty.val;
-print twenty.remainder;
-
-
 fun gcd(m, n) {
-  //var last_m = m;
-  //m = m / n;
-  //var r = last_m - (m * n);
-  //print last_m;
-  //print n;
-  //print m;
-  //print r;
   m = Int(m);
   n = Int(n);
   m.div(n);
-  print m.val;
-  print m.remainder;
   while (m.remainder != 0) {
     var tmp = m;
     m = n;
     n = Int(tmp.remainder);
     m.div(n);
   }
-  print n.val;
+  return n.val;
 }
 
-gcd(1*2*3*4*5*6*7*8*9, 2*4*8*16*32);
-print 1*2*3*4*5*6*7*8*9;
-print 2*4*8*16*32;
-
-//fun gcd_test() {
-//  var result = true;
-//  result = resulttest(gcd(1*2*3*4*5*6*7*8*9, 2*4*8*16*32), 2*4*2*8);
-//  print 
-//}
-
-//class Pair {
-//  init(a, b) {
-//    this.a = a;
-//    this.b = b;
-//  }
-//}
-
-class ListNode {
-  init(v) {
-    this.val = v;
-    this.next = nil;
+fun test(actual, expected) {
+  var result = actual == expected;
+  if (result == false) {
+    print "TEST FAILED";
+    print "expected:";
+    print actual;
+    print "got:";
+    print expected;
+  } else {
+    print "TEST PASSED";
   }
+  return false;
 }
 
-class List {
-  init(v) {
-    this.head = ListNode(v);
-    this.tail = this.head;
-  }
+print " ---------- BEGINNING OF TESTS ---------- ";
+test(gcd(1*3*5*7*11, 11*13), 11); 
+test(gcd(11, 13), 1); 
+test(gcd(13, 13), 13); 
+test(gcd(1*3*5*7*11*13, 11*13*17), 11*13); 
+print " ---------- END OF TESTS ---------- ";
 
-  append(v) {
-    this.tail.next = ListNode(v);
-    this.tail = this.tail.next;
-    return this;
-  }
-
-  //find(v) {
-  //  var cur = this.head;
-  //  var i = 0;
-  //  while (cur != nil and cur.val != v) {
-  //    cur = cur.next;
-  //  }
-  //}
-
-  fold(base, update) {
-    for (var node = this.head; node.next != nil; node = node.next) {
-      base = update(base, node.val);
-    }
-    base = update(base, this.tail.val);
-    return base;
-  }
-}
-
-var arr = List(1);
-//arr.add(2);
-//arr.add(3);
-arr.append(2);
-arr.append(3);
-
-arr.append(4).append(5).append(6);
-
-fun print_list(lst) {
-  var head = lst.head;
-  while (head != nil) {
-    print head.val;
-    head = head.next;
-  } 
-}
-
-
-
-//print arr == nil;
-print_list(arr);
-
-fun add(a, b) {
-  return a + b;
-}
-
-print arr.fold(0, add);
-
-fun manual_fold_tests() {
-  fun test(LS, RS) {
-    var result = LS == RS;
-    if (result == false) {
-      print "TEST FAILED";
-      print "expected:";
-      print LS;
-      print "got:";
-      print RS;
-    }
-    return false;
-  }
-
-  print " ---------- BEGINNING OF TESTS ---------- ";
-  var arr = List(1);
-  test(arr.fold(0, add), 1);
-  arr.append(2);
-  test(arr.fold(0, add), 3);
-  arr.append(3);
-  test(arr.fold(0, add), 6);
-  arr.append(4);
-  test(arr.fold(0, add), 10);
-  arr.append(5);
-  test(arr.fold(0, add), 15);
-  test(arr.fold(0, add), 16);
-  print " ---------- END OF TESTS ---------- ";
-}
-
-
-
-manual_fold_tests();
-
-//tried to write gcd algorithm
-//realized I needed a Int type, so I wrote the Int class
-//tried to write test suite to test gcd implementation
-//realized it would be nice to have a list to fold over,
-//so implemented List class
-
-
-//ambiguous: when you do an equality on class instances, how does that work? by reference, or by value?
+Int(-1);

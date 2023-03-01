@@ -1,0 +1,93 @@
+//sample code adding toString function to Int
+//unfortunately inefficient for reason of various missing features in lox
+
+fun abs(n) {
+  if (n < 0) {
+    return -n;
+  }
+  return n;
+}
+
+fun sign(n) {
+  if (n < 0) {
+    return -1;
+  }
+  return 1;
+}
+
+class Int {
+  init(n) {
+    //print n;
+    var i = 0;
+    while (abs(abs(i) - abs(n)) >= 1) {
+      i = i + 1 * sign(n);
+    }
+    this.val = i;
+    //this.remainder = nil; // ?
+  }
+
+  div(d) { // d : Int
+    var last_val = this.val;
+    var result = Int(this.val / d.val);
+    this.val = result.val;
+    this.remainder = last_val - (this.val * d.val);
+  }
+
+  toString() {
+    var result = "";
+    if (this.val < 0) {
+      result = result + "-";
+    }
+    var val = abs(this.val);
+    var MSD = 1;
+    while (MSD <= val) {
+      MSD = MSD * 10;
+    }
+    MSD = MSD / 10;
+    if (MSD < 1) return "0";
+    while (MSD >= 1) {
+      var tmp = Int(val);
+      tmp.div(Int(MSD));
+      if (tmp.val == 0) result = result + "0";
+      if (tmp.val == 1) result = result + "1";
+      if (tmp.val == 2) result = result + "2";
+      if (tmp.val == 3) result = result + "3";
+      if (tmp.val == 4) result = result + "4";
+      if (tmp.val == 5) result = result + "5";
+      if (tmp.val == 6) result = result + "6";
+      if (tmp.val == 7) result = result + "7";
+      if (tmp.val == 8) result = result + "8";
+      if (tmp.val == 9) result = result + "9";
+      val = tmp.remainder;
+      MSD = MSD / 10;
+    }
+    return result;
+  }
+}
+
+fun test(actual, expected) {
+  var result = actual == expected;
+  if (result == false) {
+    print "TEST FAILED";
+    print "expected:";
+    print expected;
+    print "got:";
+    print actual;
+  } else {
+    print "TEST PASSED";
+  }
+  return false;
+}
+
+print " ---------- BEGINNING OF TESTS ---------- ";
+test(Int(0).toString(), "0");
+test(Int(1).toString(), "1");
+test(Int(100).toString(), "100");
+test(Int(5).toString(), "5");
+test(Int(-3).toString(), "-3");
+test(Int(12345).toString(), "12345");
+test(Int(-6543).toString(), "-6543");
+test(Int(1234567).toString(), "1234567"); //I think ~1 million is about our limit for Int values,
+                                          //since I have to initialize them in O(n) time...
+//test(Int(99999999).toString(), "99999999"); //took like 45sec to execute. returned true.
+print " ---------- END OF TESTS ---------- ";
