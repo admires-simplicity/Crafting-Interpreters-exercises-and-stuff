@@ -34,7 +34,7 @@ class Brunch < Breakfast {
 
   fdrink() {
     this.other();
-    this.drink();
+    //this.drink();
   }
 }
 
