@@ -1,0 +1,20 @@
+I've been having trouble compiling this because I don't really understand how the java class/module/package system works
+
+these two answers have helped somewhat
+
+https://stackoverflow.com/questions/34413/why-am-i-getting-a-noclassdeffounderror-in-java
+https://stackoverflow.com/questions/17973970/how-can-i-solve-java-lang-noclassdeffounderror
+
+here's what I've found works so far:
+I have Lox.java in directory /home/user/Crafting\ Interpreters/4.\ Scanning/
+javac -cp /home/user/Crafting\ Interpreters/4.\ Scanning/ Lox.java
+mv Lox.class com/craftinginterpreters/lox
+java -cp /home/user/Crafting\ Interpreters/4.\ Scanning/ com/craftinginterpreters/lox/Lox
+
+and fortunately relative paths seem to work, so what I'm actually using is
+javac -cp . Lox.java
+mv Lox.class com/craftinginterpreters/lox
+java -cp . com/craftinginterpreters/lox/Lox
+
+I don't really understand which files need to be where when, but this works for now...
+
