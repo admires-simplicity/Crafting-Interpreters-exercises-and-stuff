@@ -9,8 +9,9 @@ import java.nio.file.Paths;
 import java.util.List;
 
 public class Lox {
+	static boolean hadError = false;
+
 	public static void main(String[] args) throws IOException {
-		static boolean hadError = false;
 
 		if (args.length > 1) {
 			System.out.println("Usage: jlox [script]");
@@ -59,7 +60,7 @@ public class Lox {
 	}
 
 	static void error(int line, String message) {
-		report(line, "", mesage);
+		report(line, "", message);
 	}
 
 	private static void report(int line, String where, String message) {
