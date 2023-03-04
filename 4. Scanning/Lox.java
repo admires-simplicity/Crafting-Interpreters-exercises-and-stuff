@@ -10,6 +10,8 @@ import java.util.List;
 
 public class Lox {
 	public static void main(String[] args) throws IOException {
+		static boolean hadError = false;
+
 		if (args.length > 1) {
 			System.out.println("Usage: jlox [script]");
 			System.exit(64); 
@@ -25,6 +27,9 @@ public class Lox {
 	private static void runFile(String path) throws IOException {
 		byte[] bytes = Files.readAllBytes(Paths.get(path)); //throws IOException if "path" does not refer to real filename
 		run(new String(bytes, Charset.defaultCharset()));
+
+		//Indicate an error in the exit code.
+		if (hadError) System.exit(65);
 	}
 
 	private static void runPrompt() throws IOException {
@@ -36,19 +41,29 @@ public class Lox {
 			String line = reader.readLine();
 			if (line == null) break;
 			run(line);
+			hadError = false; //reset flag before running next line
 		}
 	}
 
 	private static void run(String source) {
-		//Scanner scanner = new Scanner(source);
-		//List<Token> tokens = scanner.scanTokens();
+		Scanner scanner = new Scanner(source);
+		List<Token> tokens = scanner.scanTokens();
 
-		////for now, just print the tokens.
-		//for (Token token : tokens) {
-		//	System.out.println(token);
-		//}
+		//for now, just print the tokens.
+		for (Token token : tokens) {
+			System.out.println(token);
+		}
 
-		System.out.println("PROGRAM IS RUNNED");
+		//System.out.println("PROGRAM IS RUNNED");
 
+	}
+
+	static void error(int line, String message) {
+		report(line, "", mesage);
+	}
+
+	private static void report(int line, String where, String message) {
+		System.err.println("[line " + line + "] Error" + where + ": " + message);
+		hadError = true;
 	}
 }
