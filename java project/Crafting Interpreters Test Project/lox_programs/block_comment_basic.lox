@@ -1,0 +1,6 @@
+// won't work in standard lox compiler
+var x = 1; /* hello 
+            * this is a block comment
+            * like in C */
+var y = 2;
+print x + y;

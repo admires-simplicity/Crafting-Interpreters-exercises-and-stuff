@@ -1,0 +1,71 @@
+
+// sample program for challenge 1 from chapter 3
+// gcd algorithm
+// uses custom Int class with division operation (method)
+// has a few tests but not extensive
+
+fun abs(n) {
+  if (n < 0) {
+    return -n;
+  }
+  return n;
+}
+
+fun sign(n) {
+  if (n < 0) {
+    return -1;
+  }
+  return 1;
+}
+
+class Int {
+  init(n) {
+    var i = 0;
+    while (abs(abs(i) - abs(n)) >= 1) {
+      i = i + 1 * sign(n);
+    }
+    this.val = i;
+    //this.remainder = nil; // ?
+  }
+
+  div(d) { // d : Int
+    var last_val = this.val;
+    var result = Int(this.val / d.val);
+    this.val = result.val;
+    this.remainder = last_val - (this.val * d.val);
+  }
+}
+
+fun gcd(m, n) {
+  m = Int(m);
+  n = Int(n);
+  m.div(n);
+  while (m.remainder != 0) {
+    var tmp = m;
+    m = n;
+    n = Int(tmp.remainder);
+    m.div(n);
+  }
+  return n.val;
+}
+
+fun test(actual, expected) {
+  var result = actual == expected;
+  if (result == false) {
+    print "TEST FAILED";
+    print "expected:";
+    print actual;
+    print "got:";
+    print expected;
+  } else {
+    print "TEST PASSED";
+  }
+  return false;
+}
+
+print " ---------- BEGINNING OF TESTS ---------- ";
+test(gcd(1*3*5*7*11, 11*13), 11); 
+test(gcd(11, 13), 1); 
+test(gcd(13, 13), 13); 
+test(gcd(1*3*5*7*11*13, 11*13*17), 11*13); 
+print " ---------- END OF TESTS ---------- ";

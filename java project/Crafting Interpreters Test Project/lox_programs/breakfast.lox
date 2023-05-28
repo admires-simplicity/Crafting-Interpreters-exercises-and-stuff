@@ -1,0 +1,44 @@
+class Breakfast {
+  init(meat, bread) {
+    this.meat = meat;
+    this.bread = bread;
+  }
+
+  serve(who) {
+    print "Enjoy your " + this.meat + " and " +
+        this.bread + ", " + who + ".";
+  }
+}
+
+var baconAndToast = Breakfast("bacon", "toast");
+baconAndToast.serve("Dear Reader");
+
+//var nilBreakfast = Breakfast(); //produces error
+//nilBreakfast.serve();
+
+class Brunch < Breakfast {
+  init(meat, bread, drink) {
+    super.init(meat, bread);
+    this.drink = drink;
+    //this.drink = this.other;
+  }
+
+  drink() {
+    //print "How about a Bloody Mary?";
+    print this.drink;
+  }
+
+  other() {
+    print "other function called successfully";
+  }
+
+  fdrink() {
+    this.other();
+    //this.drink();
+  }
+}
+
+var benedict = Brunch("ham", "English muffin", "mcdonalds sprite");
+benedict.serve("Noble Reader");
+benedict.fdrink();
+print benedict.drink;

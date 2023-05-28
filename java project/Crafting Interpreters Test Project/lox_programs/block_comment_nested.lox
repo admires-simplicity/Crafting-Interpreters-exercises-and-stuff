@@ -1,0 +1,13 @@
+// won't work in standard lox compiler
+var x = 1; /* hello 
+                /* comment in a comment */
+              lul how weird
+                /* check this out
+                  /* TRIPLE nested! */
+                 lul, funny
+                  /* ALSO triple! */
+                ok... this ends here */
+              now the comment ends too...
+           */
+var y = 2;
+print x + y;
