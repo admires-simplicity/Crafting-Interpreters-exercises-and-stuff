@@ -1,0 +1,68 @@
+Earlier, I said that the |, *, and + forms we added to our grammar metasyntax were just syntactic sugar. Take this grammar:
+
+expr → expr ( "(" ( expr ( "," expr )* )? ")" | "." IDENTIFIER )+
+     | IDENTIFIER
+     | NUMBER
+
+Produce a grammar that matches the same language but does not use any of that notational sugar.
+
+Bonus: What kind of expression does this bit of grammar encode?
+
+
+
+(99% sure) this is equivalent:
+
+expr → expr subexpr
+expr → IDENTIFIER
+expr → NUMBER
+
+subexpr → subexpr subexpr 
+subexpr → parens
+subexpr → member
+
+parens → "(" ")"
+parens → "(" expr ")"
+parens → "(" expr comma-expr ")"
+
+comma-expr → "," expr
+comma-expr → comma-expr "," expr
+
+member → "." IDENTIFIER
+member → member "." IDENTIFIER
+
+//not sure if "subexpr" is the best term for this.
+
+idk a name for the type of expression but it encodes expressions for values
+which are numbers, identifiers, function calls, and arbitrarily repeated
+function calls,  member accesses
+
+e.g.
+
+expr
+NUMBER <-- number
+
+expr subexpr
+IDENTIFIER subexpr
+IDENTIFIER parens
+IDENTIFIER "(" ")" <-- function call, no arguments
+
+expr subexpr
+IDENTIFIER subexpr
+IDENTIFIER parens
+IDENTIFIER "(" expr comma-expr ")" <-- function call, arbitrarily many arguments
+
+expr subexpr 
+expr subexpr subexpr
+expr subexpr subexpr subexpr
+IDENTIFIER subexpr subexpr subexpr
+IDENTIFIER member subexpr subexpr
+IDENTIFIER member "." IDENTIFIER subexpr subexpr
+IDENTIFIER "." IDENTIFIER "." IDENTIFIER subexpr subexpr
+IDENTIFIER "." IDENTIFIER "." IDENTIFIER parens subexpr
+IDENTIFIER "." IDENTIFIER "." IDENTIFIER "(" expr ")" subexpr
+IDENTIFIER "." IDENTIFIER "." IDENTIFIER "(" NUMBER ")" subexpr
+IDENTIFIER "." IDENTIFIER "." IDENTIFIER "(" NUMBER ")" member
+IDENTIFIER "." IDENTIFIER "." IDENTIFIER "(" NUMBER ")" "." IDENTIFIER <-- nesting member & function calls, e.g. foo.bar.baz(6).qux
+
+
+
