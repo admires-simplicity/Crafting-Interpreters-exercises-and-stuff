@@ -23,8 +23,6 @@ class Parser {
   }
 
   private Expr expression() {
-    
-
     Expr expr = conditional();
 
     while (match(COMMA)) {

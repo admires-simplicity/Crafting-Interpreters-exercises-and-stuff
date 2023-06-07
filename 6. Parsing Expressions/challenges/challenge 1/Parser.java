@@ -23,25 +23,10 @@ class Parser {
   }
 
   private Expr expression() {
-    
-
-    Expr expr = conditional();
-
-    while (match(COMMA)) {
-      expr = conditional();
-    }
-
-    return expr;
-  }
-
-  private Expr conditional() {
     Expr expr = equality();
 
-    if (match(QUESTION)) {
-      Expr ifExpr = conditional();
-      consume(COLON, "Missing colon in ternary operator.");
-      Expr elseExpr = conditional();
-      expr = new Expr.Conditional(expr, ifExpr, elseExpr);
+    while (match(COMMA)) {
+      expr = equality();
     }
 
     return expr;
