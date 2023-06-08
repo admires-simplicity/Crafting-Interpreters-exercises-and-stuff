@@ -17,6 +17,10 @@ public class GenerateAst {
         "Grouping : Expr expression",
         "Literal  : Object value",
         "Unary    : Token operator, Expr right"));
+    defineAst(outputDir, "Stmt", Arrays.asList(
+      "Expression : Expr expression",
+      "Print      : Expr expression"
+    ));
   }
 
   private static void defineAst(
@@ -42,7 +46,7 @@ public class GenerateAst {
 
     // The base accept() method
     writer.println();
-    writer.println("  abstract <R> R accept(Visitor<R> vistior);");
+    writer.println("  abstract <R> R accept(Visitor<R> visitor);");
 
     writer.println("}");
     writer.close();
