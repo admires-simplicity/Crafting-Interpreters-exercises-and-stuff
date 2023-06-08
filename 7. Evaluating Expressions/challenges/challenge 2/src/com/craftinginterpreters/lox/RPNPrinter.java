@@ -27,12 +27,6 @@ class RPNPrinter implements Expr.Visitor<String> {
     return print(expr.right) + " " + expr.operator.lexeme;
   }
 
-  @Override
-  public String visitConditionalExpr(Expr.Conditional expr) {
-    return print(expr.conditional) + " " + print(expr.ifExpr) + " " + 
-      print(expr.elseExpr) + " ?:";
-  }
-
   public static void main(String[] args) {
     Expr expression1 = new Expr.Binary(
         new Expr.Unary(
