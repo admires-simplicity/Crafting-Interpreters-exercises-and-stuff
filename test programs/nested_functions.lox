@@ -1,0 +1,10 @@
+fun example(x) {
+    fun test(y) {
+      print "hello " + y;
+    }
+   
+    test(x);
+}
+
+example("world");
+

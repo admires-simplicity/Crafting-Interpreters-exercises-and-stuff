@@ -1,0 +1,43 @@
+// the following code demonstrates that:
+//   1. closed global environment reflects definition of variables after
+//      time of closure creation
+//   2. closed global environment reflects redefinition of variables after
+//      time of closure creation
+var a = 1;
+
+fun f() {
+  return a + b;
+}
+
+var b = 2;
+print f(); // 3
+
+a = 3;
+print f(); // 5
+
+
+//the following code demonstrates that:
+//  1. closures handle dynamically defined shadowing variables without affecting
+//     global environment
+
+fun closure() {
+  fun enclosed() {
+    return a + b;
+  }
+  
+  print enclosed();
+  var b = 5;
+  print enclosed();
+}
+
+closure(); // 5, 8
+print f(); // 5
+
+a = 4;
+
+closure(); //6, 9
+print f(); //6
+
+
+
+
