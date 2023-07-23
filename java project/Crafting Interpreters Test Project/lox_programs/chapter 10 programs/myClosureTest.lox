@@ -39,5 +39,9 @@ closure(); //6, 9
 print f(); //6
 
 
-
+//whoops.
+//I figured out how this would work because I wanted to make sure I understood
+//how Environment was being used in LoxFunction and I figured out it'd work this
+//way, but apparently this is actually an error, as explained in ch. 11,
+//because the interpreter is supposed to be lexically scoped...
 
