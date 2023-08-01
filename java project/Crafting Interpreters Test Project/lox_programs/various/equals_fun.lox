@@ -1,0 +1,28 @@
+//in lox, can you do an equals on a fun object?
+
+fun f() {
+  print "f called";
+}
+
+var a = f;
+print a;
+
+//causes error: "Error at 'fun': Expect expression."
+// var b = fun g() {
+//   print "g called";
+// }
+
+a();
+
+fun g(x) {
+  if (x >= 15) return;
+
+  print g;
+  g(x+1);
+  print x + 1;
+}
+
+var b = g;
+b(9);
+
+print b;

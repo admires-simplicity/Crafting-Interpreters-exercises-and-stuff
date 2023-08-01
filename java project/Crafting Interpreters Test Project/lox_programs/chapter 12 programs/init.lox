@@ -1,0 +1,40 @@
+class A {
+  f() {
+    print this.value;
+  }
+}
+
+var a = A();
+a.value = "hello";
+a.f();
+a.value = "world";
+a.f();
+
+class B {
+  init(x, y) {
+    this.x = x;
+    this.y = y;
+  }
+
+  def_value(x) {
+    this.value = x;
+  }
+
+  f() {
+    print this.value;
+  }
+}
+
+var b = B(1, 2);
+b.def_value(b.x + b.y);
+b.f();
+
+
+class Foo {
+  init() {
+    print this;
+  }
+}
+
+var foo = Foo();
+print foo.init();

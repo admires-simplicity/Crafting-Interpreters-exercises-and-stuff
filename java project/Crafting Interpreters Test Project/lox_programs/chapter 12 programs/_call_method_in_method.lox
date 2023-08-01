@@ -1,0 +1,13 @@
+class Chain {
+  f() {
+    print "f called";
+  }
+
+  g() {
+    print "g called";
+    f();
+  }
+}
+
+Chain().f();
+Chain().g();

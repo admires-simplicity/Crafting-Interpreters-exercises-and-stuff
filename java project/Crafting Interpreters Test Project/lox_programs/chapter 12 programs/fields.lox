@@ -1,0 +1,17 @@
+class A {
+  //var v = 0;  // Error at 'var': expect method name
+}
+
+var a1 = A();
+a1.v = 1;
+a1.w = 2;
+
+//var a2 = A();
+//a2.w = 2;
+
+print a1.v;
+print a1.w;
+
+//print a2.v;
+//print a2.w;
+
