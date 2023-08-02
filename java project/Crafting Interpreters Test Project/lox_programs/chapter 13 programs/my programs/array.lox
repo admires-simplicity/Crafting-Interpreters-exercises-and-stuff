@@ -1,0 +1,70 @@
+class numList {
+	init(n) {
+		this.n = n;
+		this.next = nil;
+	}
+	
+	link(next) {
+		this.next = next;
+	}
+
+	value() {
+		return this.n;
+	}
+
+	update(n) {
+		this.n = n;
+	}
+}
+
+fun printNumList(n) {
+	print n.n;
+	if (n.next == nil) return;
+	printNumList(n.next);
+}
+
+var a = numList(1);
+a.link(numList(2));
+a.next.link(numList(3));
+printNumList(a);
+
+
+class numArray {
+	init(size) {
+		if (size <= 0) return;
+
+		this.n = numList(0);
+		var tmp = this.n;
+
+		for (var i = 1; i < size; i = i + 1) {
+			tmp.link(numList(0));
+			tmp = tmp.next;
+		}
+	}
+
+	get(n) {
+		if (n <= 0) return;
+
+		var r = this.n;
+		for (var i = 0; i < n; i = i + 1) {
+			r = r.next;
+		}
+
+		return r;
+	}
+}
+
+var na = numArray(10);
+print "na:";
+printNumList(na.n);
+for (var i = 0; i < 10; i = i + 1) {
+	na.get(i).update(i);
+}
+print "na, updated:";
+printNumList(na.n);
+
+
+//challenge 3: 
+//In the chapter where I introduced Lox, I challenged you to come up with a couple of features you think the language is missing. Now that you know how to build an interpreter, implement one of those features.
+//feature:
+//string + num should just overload to string + stringify(num)
